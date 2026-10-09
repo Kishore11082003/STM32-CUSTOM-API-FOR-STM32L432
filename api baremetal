@@ -1,1 +1,45 @@
+#include "DEVICE_HEADERS/stm32l432xx.h"
+#include "DEVICE_DRIVER/gpio.h"
+#include "DEVICE_DRIVER/pwm.h"
+#include "DEVICE_DRIVER/pwm_motor.h"
+#include "DEVICE_DRIVER/servo_motor.h"
+#include "DEVICE_DRIVER/spi.h"
+#include "DEVICE_DRIVER/i2c.h"
 
+int main()
+{
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+	RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
+
+	//MISO
+
+	GPIO_Init(GPIOA,
+			GPIO_PIN6,
+			GPIO_MODE_ALTERNATE,
+			GPIO_OTYPER_OPENDRAIN,
+			GPIO_SPEED_LOW,
+			GPIO_NO_PUSHPULL);
+
+	//MOSI
+
+	GPIO_Init(GPIOA,
+			GPIO_PIN7,
+			GPIO_MODE_ALTERNATE,
+			GPIO_OTYPER_OPENDRAIN,
+			GPIO_SPEED_LOW,
+			GPIO_NO_PUSHPULL);
+
+	GPIO_ALTER(GPIOB,GPIO_PIN6,AF4);
+	GPIO_ALTER(GPIOB,GPIO_PIN7,AF4);
+
+	I2C_INIT();
+
+	while(1) {
+		void I2C_INIT(void);
+
+		 I2C_CMT(0x01);
+
+		 I2C_DATA(0X01);
+
+	}
+}
